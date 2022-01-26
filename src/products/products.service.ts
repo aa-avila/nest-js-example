@@ -33,8 +33,14 @@ export class ProductsService {
     return response.id as string;
   }
 
-  getAllProducts() {
-    return [...this.products];
+  async getAllProducts() {
+    const products = await this.productModel.find().exec();
+    return products.map((prod) => ({
+      id: prod.id,
+      title: prod.title,
+      description: prod.description,
+      price: prod.price,
+    }));
   }
 
   getProductById(prodId: string): Product {
@@ -54,7 +60,7 @@ export class ProductsService {
       updatedProd.title = prodTitle;
     }
     if (prodDesc) {
-      updatedProd.desc = prodDesc;
+      updatedProd.description = prodDesc;
     }
     if (prodPrice) {
       updatedProd.price = prodPrice;

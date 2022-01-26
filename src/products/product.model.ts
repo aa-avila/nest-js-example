@@ -9,7 +9,7 @@ export const ProductSchema = new mongoose.Schema({
 export interface Product {
   id: string;
   title: string;
-  desc: string;
+  description: string;
   price: number;
 }
 
