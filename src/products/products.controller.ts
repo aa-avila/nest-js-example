@@ -14,22 +14,22 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  addProduct(
+  async addProduct(
     @Body('title') prodTitle: string,
     @Body('desc') prodDesc: string,
     @Body('price') prodPrice: number,
   ) {
-    const prodId = this.productsService.insertProduct(
+    const returnedId = await this.productsService.insertProduct(
       prodTitle,
       prodDesc,
       prodPrice,
     );
-    return { id: prodId };
+    return { id: returnedId };
   }
 
   @Get()
-  getAllProducts() {
-    return this.productsService.getAllProducts();
+  async getAllProducts() {
+    return await this.productsService.getAllProducts();
   }
 
   @Get(':id')
@@ -53,7 +53,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  deleteProduct(@Param('id') prodId: string) {
-    return this.productsService.deleteProduct(prodId);
+  async deleteProduct(@Param('id') prodId: string) {
+    return await this.productsService.deleteProduct(prodId);
   }
 }
